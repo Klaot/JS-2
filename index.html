@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 1</title>
+</head>
+    <style>
+        body {
+            margin: 0 auto;
+            background-color: black;
+        }
+        .menu-block {
+            max-width: 700px;
+            height: 300px;
+            margin: auto;
+            margin-top: 150px;
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(5, 189, 196);
+            box-shadow: 0 0 10px rgb(5, 189, 196);
+            border-radius: 8px;
+            text-align: center;
+            background: linear-gradient(rgb(148, 215, 247), #03a9f4 );
+            padding-top: 20px;
+           
+        }
+        .lite1 {
+            box-shadow: 0 0 16px rgb(5, 189, 196);
+        }
+        .lite2 {
+            box-shadow: 0 0 32px rgb(5, 189, 196);
+        }
+        .menu-block h1 {
+            text-align: center;
+        }
+        li {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: rgba(0, 0, 0, 0.171);
+            text-align: start;
+            cursor: pointer;
+
+        }
+        .card-menu {
+            font-size: 20px;
+            margin-right: 40px;
+            
+        }
+        .card-info {
+            background-size: 400%;
+            color: rgba(0, 0, 0, 0.856);
+            padding-inline: 15px;
+            border-radius: 0 8px 8px 0;
+           
+        }
+        .card-info p {
+            font-size: 20px;
+        }
+        .hide {
+            display: none;
+        }
+        .active {
+            color: black;
+        }
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        
+        @keyframes fade {
+            from{opacity: 0.1;}
+            to{opacity: 1;}}
+
+    </style>
+<body> 
+    <div class="menu-block">
+        <div>
+            <ul class="card-menu">
+                <li class="item active">Постное</li>
+                <li class="item ">Сбалансированное</li>
+                <li class="item">Премиум</li>
+            </ul>
+        </div>
+        <div class="card-info card-active">
+            <div class="anim">
+                <h1>Постное</h1>
+                <p>Наше специальное “Постное меню” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения. Полная гармония с собой и природой в каждом элементе! Все будет Ом!</p>
+            </div>
+        </div>
+        <div class="card-info">
+            <div class="anim ">
+            <h1>Сбалансированное</h1>
+            <p>Меню "Сбалансированное" - это соответствие вашего рациона всем научным рекомендациям. Мы тщательно просчитываем вашу потребность в к/б/ж/у и создаем лучшие блюда для вас.</p>
+            </div>
+        </div>
+        <div class="card-info">
+            <div class="anim">
+            <h1>Премиум</h1>
+            <p>Меню “Премиум” - мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!</p>
+            </div>
+        </div>
+   </div>
+    <script>
+        const menu = document.querySelector('.card-menu'),
+              menuItem = document.querySelectorAll('.item'),
+              cards = document.querySelectorAll('.card-info'),
+              menublock = document.querySelector('.menu-block');
+
+
+        function hideCard() {
+            cards.forEach(i => {
+                i.classList.add('hide');
+                i.classList.remove('card-active')
+            })
+
+            menuItem.forEach(i => {
+                i.classList.remove('active')
+            })
+
+            
+        }
+
+        function showCard(i = 0) {
+                cards[i].classList.add('card-active', 'fade')
+                cards[i].classList.remove('hide');
+                menuItem[i].classList.add('active');
+                if (i == 0) {
+                    menublock.classList.remove('lite1','lite2')
+                } else if (i == 1) {
+                    menublock.classList.remove('lite2')
+                    menublock.classList.add('lite1')
+                } else if (i == 2) {
+                    menublock.classList.add('lite2')
+                }    
+        }
+
+        hideCard();
+        showCard();
+
+        menu.addEventListener('click', (event) => {
+            if (event.target && event.target.classList.contains('item')) {
+                menuItem.forEach((item, i) => {
+                    if (event.target == item) {
+                        hideCard();
+                        showCard(i);
+                    }
+                })
+            }
+        })
+
+        
+
+
+    </script>
+</body>
+</html>
